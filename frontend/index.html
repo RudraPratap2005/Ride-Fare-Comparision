@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ride Fare Comparision</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <nav class="top-nav" aria-label="Primary navigation">
+        <a class="brand-link" href="./">Smart Ride Analytics</a>
+        <div class="nav-links">
+          <a class="nav-link nav-link-current" href="./">Home</a>
+          <a class="nav-link" href="analytics.html">Analytics Dashboard</a>
+        </div>
+      </nav>
+
+      <section class="hero">
+        <h1>Ride Fare Comparision</h1>
+        <p class="hero-copy">
+          Compare ride fares, route context, and travel conditions across providers
+          from a single trip search.
+        </p>
+      </section>
+
+      <section class="workspace">
+        <section class="panel panel-form" aria-labelledby="trip-form-title">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Trip Input</p>
+              <h2 id="trip-form-title">Plan a trip</h2>
+            </div>
+          </div>
+
+          <form id="ride-form" class="ride-form">
+            <div class="field-grid">
+              <label class="field">
+                <span class="field-label">Pickup location</span>
+                <input
+                  id="pickup"
+                  name="pickup"
+                  type="text"
+                  placeholder="Example: India Gate, Delhi"
+                  autocomplete="off"
+                  required
+                />
+              </label>
+
+              <label class="field">
+                <span class="field-label">Drop location</span>
+                <input
+                  id="drop"
+                  name="drop"
+                  type="text"
+                  placeholder="Example: Noida Sector 62"
+                  autocomplete="off"
+                  required
+                />
+              </label>
+            </div>
+
+            <div class="field-grid field-grid-compact">
+              <label class="field">
+                <span class="field-label">Booking type</span>
+                <select id="booking-type" name="bookingType">
+                  <option>Ride Now</option>
+                  <option>Schedule for Later</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Ride class</span>
+                <select id="trip-mode" name="tripMode">
+                  <option>Budget Ride</option>
+                  <option selected>Standard Ride</option>
+                  <option>Premium Ride</option>
+                </select>
+              </label>
+
+              <label id="hour-field" class="field hidden">
+                <span class="field-label">Trip hour</span>
+                <select id="trip-hour" name="tripHour"></select>
+              </label>
+            </div>
+
+            <button id="analyze-button" type="submit" class="primary-action">
+              Analyze Trip
+            </button>
+          </form>
+
+          <div id="status" class="status" role="status" aria-live="polite"></div>
+        </section>
+
+        <section class="panel panel-insight" aria-labelledby="insight-title">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">What It Shows</p>
+              <h2 id="insight-title">Decision snapshot</h2>
+            </div>
+          </div>
+
+          <div class="insight-list">
+            <article class="insight-item">
+              <span class="insight-label">Fare comparison</span>
+              <strong>Lowest provider and price spread</strong>
+            </article>
+            <article class="insight-item">
+              <span class="insight-label">Trip context</span>
+              <strong>Distance, ETA, and inferred traffic</strong>
+            </article>
+            <article class="insight-item">
+              <span class="insight-label">Provider detail</span>
+              <strong>Vehicle type, ETA, and value score</strong>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <section id="results" class="results hidden" aria-live="polite">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Trip Output</p>
+            <h2>Comparison results</h2>
+          </div>
+          <p id="resolved-trip" class="resolved-trip"></p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="summary-card summary-card-primary">
+            <span class="summary-label">Cheapest option</span>
+            <strong id="cheapest-provider">-</strong>
+            <p id="cheapest-price">-</p>
+          </article>
+          <article class="summary-card">
+            <span class="summary-label">Route distance</span>
+            <strong id="distance">-</strong>
+          </article>
+          <article class="summary-card">
+            <span class="summary-label">Expected duration</span>
+            <strong id="duration">-</strong>
+            <p id="traffic">-</p>
+          </article>
+        </div>
+
+        <div class="provider-section">
+          <div class="provider-head">
+            <h3>Provider breakdown</h3>
+            <p>Ranked list with value score and ETA</p>
+          </div>
+          <div id="provider-list" class="provider-list"></div>
+        </div>
+      </section>
+
+      <section class="project-grid">
+        <section class="panel panel-wide" aria-labelledby="recommendation-title">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Recommendation</p>
+              <h2 id="recommendation-title">Decision summary</h2>
+            </div>
+          </div>
+          <div class="recommendation-card">
+            <div class="recommendation-topline">
+              <span class="recommendation-label">Best Value</span>
+              <strong id="best-value-provider">Run a trip</strong>
+            </div>
+            <p id="recommendation-summary" class="recommendation-summary">
+              The system will explain why a provider is cheapest, fastest, or strongest overall value.
+            </p>
+            <div class="recommendation-grid">
+              <article>
+                <span>Fastest ETA</span>
+                <strong id="fastest-provider">-</strong>
+              </article>
+              <article>
+                <span>Scenario</span>
+                <strong id="scenario-label">-</strong>
+              </article>
+              <article>
+                <span>Distance Band</span>
+                <strong id="distance-band">-</strong>
+              </article>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel analytics-panel" aria-labelledby="analytics-title">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Analytics</p>
+            <h2 id="analytics-title">Recorded trip patterns</h2>
+          </div>
+          <div class="analytics-actions">
+            <p id="analytics-status" class="analytics-status">Loading project analytics...</p>
+            <button id="clear-history-button" type="button" class="ghost-action">Clear History</button>
+          </div>
+        </div>
+
+        <div class="analytics-grid">
+          <article class="analytics-card">
+            <div class="analytics-card-head">
+              <h3>Average Fare by Provider</h3>
+              <span id="analytics-total-records">0 records</span>
+            </div>
+            <div id="provider-chart" class="chart-list"></div>
+          </article>
+
+          <article class="analytics-card">
+            <div class="analytics-card-head">
+              <h3>Average Fare by Hour</h3>
+              <span>Operational load</span>
+            </div>
+            <div id="hour-chart" class="chart-list"></div>
+          </article>
+
+          <article class="analytics-card analytics-card-wide">
+            <div class="analytics-card-head">
+              <h3>Recent Logged Trips</h3>
+              <span>Latest provider estimates saved to SQLite</span>
+            </div>
+            <div id="recent-trips" class="recent-trips"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

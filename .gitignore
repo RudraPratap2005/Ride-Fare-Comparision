@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+data/*.db
+data/*.db-*
+finalenv/
+.idea/
+logs/
+pytest-cache-files-*/
+.pytest_tmp/
+/*.log

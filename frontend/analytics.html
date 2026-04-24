@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ola Analytics Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <nav class="top-nav" aria-label="Primary navigation">
+        <a class="brand-link" href="./">Smart Ride Analytics</a>
+        <div class="nav-links">
+          <a class="nav-link" href="./">Home</a>
+          <a class="nav-link nav-link-current" href="analytics.html">Analytics Dashboard</a>
+        </div>
+      </nav>
+
+      <section class="hero">
+        <p class="section-kicker">Analytics</p>
+        <h1>Ola Analytics Dashboard</h1>
+        <p class="hero-copy">
+          Explore booking volume, vehicle mix, revenue, cancellations, and ratings
+          through the published Power BI report used alongside this project.
+        </p>
+        <div class="hero-actions">
+          <a class="secondary-action" href="./">Back to Fare Comparison</a>
+          <a
+            class="ghost-action"
+            href="https://app.powerbi.com/view?r=eyJrIjoiMzI2NjIwMmMtOWU4NC00YmY4LWJhYmQtMGFhNmM2YjY1NGUzIiwidCI6IjVjNWQyNjYxLWNkNmMtNDI2YS05NGNlLTgyMGM2ZmNkMTQxMCJ9"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open Full Report
+          </a>
+        </div>
+      </section>
+
+      <section class="panel analytics-embed-panel" aria-labelledby="dashboard-frame-title">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Embedded Dashboard</p>
+            <h2 id="dashboard-frame-title">Published Power BI Report</h2>
+          </div>
+          <p class="analytics-status">Live embedded view from Power BI Service</p>
+        </div>
+
+        <div class="analytics-embed-frame">
+          <iframe
+            title="Ola Analytics Dashboard"
+            src="https://app.powerbi.com/view?r=eyJrIjoiMzI2NjIwMmMtOWU4NC00YmY4LWJhYmQtMGFhNmM2YjY1NGUzIiwidCI6IjVjNWQyNjYxLWNkNmMtNDI2YS05NGNlLTgyMGM2ZmNkMTQxMCJ9"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

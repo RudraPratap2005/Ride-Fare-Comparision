@@ -31,29 +31,79 @@ mains.py        FastAPI compatibility launcher
 
 ## Local Setup
 
-Create and activate a virtual environment, then install dependencies:
+Create and activate a virtual environment, then install dependencies.
+
+### Windows PowerShell
+
+```powershell
+python -m venv finalenv
+.\finalenv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+### macOS / Linux
 
 ```bash
+python -m venv finalenv
+source finalenv/bin/activate
 pip install -r requirements.txt
 ```
 
 Copy `.env.example` to `.env` if you want to override defaults.
 
-Start the API:
+## Run The Backend
 
-```bash
-uvicorn backend.main:app --reload
+Run the API from the project root. Using `python -m uvicorn` is the most reliable option on Windows because it uses the active virtual environment's Python.
+
+### Windows PowerShell
+
+```powershell
+cd C:\Users\rudra\Desktop\Final_Project
+.\finalenv\Scripts\Activate.ps1
+python -m uvicorn backend.main:app --reload --app-dir .
 ```
 
-Open the web frontend in another terminal:
+If you still hit an import error, use the compatibility launcher:
+
+```powershell
+python -m uvicorn mains:app --reload
+```
+
+### macOS / Linux
 
 ```bash
+cd /path/to/Final_Project
+source finalenv/bin/activate
+python -m uvicorn backend.main:app --reload --app-dir .
+```
+
+Backend URLs:
+
+- App docs: `http://localhost:8000/docs`
+- Health check: `http://localhost:8000/health`
+- Frontend mounted by FastAPI: `http://localhost:8000/web`
+
+## Run The Frontend Only
+
+Open the static frontend in another terminal:
+
+### Windows PowerShell
+
+```powershell
+cd C:\Users\rudra\Desktop\Final_Project
+.\finalenv\Scripts\Activate.ps1
+python -m http.server 5500 --directory frontend
+```
+
+### macOS / Linux
+
+```bash
+cd /path/to/Final_Project
+source finalenv/bin/activate
 python -m http.server 5500 --directory frontend
 ```
 
 Then open `http://localhost:5500`.
-
-You can also use the frontend mounted by FastAPI at `http://localhost:8000/web`.
 
 ## Docker Setup
 

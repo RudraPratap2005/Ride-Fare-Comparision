@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      RIDESCOPE_DATABASE_PATH: /app/data/ridescope.db
+    volumes:
+      - ridescope-data:/app/data
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    depends_on:
+      - backend
+    ports:
+      - "8501:8501"
+
+volumes:
+  ridescope-data:
