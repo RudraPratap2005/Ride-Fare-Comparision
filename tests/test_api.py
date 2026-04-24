@@ -16,7 +16,7 @@ def test_get_price_returns_valid_response(monkeypatch):
         }
 
     def test_settings():
-        database_path = Path("data/test_ridescope.db")
+        database_path = Path("data/test_ride_fare_comparision.db")
         if database_path.exists():
             database_path.unlink()
         return Settings(database_path=database_path)
@@ -64,7 +64,7 @@ def test_get_price_rejects_invalid_coordinates():
 
 def test_history_summary_returns_success(monkeypatch):
     def test_settings():
-        return Settings(database_path=Path("data/test_ridescope.db"))
+        return Settings(database_path=Path("data/test_ride_fare_comparision.db"))
 
     app.dependency_overrides[get_settings] = test_settings
 
@@ -81,7 +81,7 @@ def test_history_summary_returns_success(monkeypatch):
 
 def test_clear_history_returns_deleted_rows(monkeypatch):
     def test_settings():
-        return Settings(database_path=Path("data/test_ridescope.db"))
+        return Settings(database_path=Path("data/test_ride_fare_comparision.db"))
 
     app.dependency_overrides[get_settings] = test_settings
 
@@ -114,7 +114,7 @@ def test_ola_analytics_returns_provider_focused_dataset(monkeypatch):
         }
 
     def test_settings():
-        database_path = Path("data/test_ridescope_ola.db")
+        database_path = Path("data/test_ride_fare_comparision_ola.db")
         if database_path.exists():
             database_path.unlink()
         return Settings(database_path=database_path)
@@ -156,7 +156,7 @@ def test_ola_analytics_csv_export_returns_csv(monkeypatch):
         }
 
     def test_settings():
-        database_path = Path("data/test_ridescope_ola_export.db")
+        database_path = Path("data/test_ride_fare_comparision_ola_export.db")
         if database_path.exists():
             database_path.unlink()
         return Settings(database_path=database_path)

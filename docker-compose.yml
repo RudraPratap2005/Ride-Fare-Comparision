@@ -4,9 +4,9 @@ services:
       context: .
       dockerfile: Dockerfile.backend
     environment:
-      RIDESCOPE_DATABASE_PATH: /app/data/ridescope.db
+      RIDESCOPE_DATABASE_PATH: /app/data/ride_fare_comparision.db
     volumes:
-      - ridescope-data:/app/data
+      - ride-fare-comparision-data:/app/data
     ports:
       - "8000:8000"
 
@@ -20,4 +20,4 @@ services:
       - "8501:8501"
 
 volumes:
-  ridescope-data:
+  ride-fare-comparision-data:

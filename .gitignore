@@ -10,3 +10,11 @@ logs/
 pytest-cache-files-*/
 .pytest_tmp/
 /*.log
+# Ride Fare Comparision local environment files
+.env
+finalenv/
+
+# Python cache and test artifacts
+__pycache__/
+*.pyc
+.pytest_cache/

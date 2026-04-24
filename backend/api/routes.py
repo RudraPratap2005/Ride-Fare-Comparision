@@ -29,7 +29,7 @@ router = APIRouter()
 @router.get("/")
 @router.get("/health")
 def health_check() -> dict:
-    return {"status": "ok", "message": "RideScope AI API is running."}
+    return {"status": "ok", "message": "Ride Fare Comparision API is running."}
 
 
 @router.post("/get-price", response_model=RideResponse)
