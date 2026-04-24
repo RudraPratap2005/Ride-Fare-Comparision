@@ -9,7 +9,7 @@ load_dotenv()
 
 
 class Settings(BaseModel):
-    app_name: str = "RideScope AI API"
+    app_name: str = "Ride Fare Comparision API"
     route_api_url: str = "https://router.project-osrm.org/route/v1/driving"
     request_timeout_seconds: int = Field(default=12, ge=1, le=60)
     database_path: Path = Path("data/ridescope.db")
@@ -25,7 +25,7 @@ class Settings(BaseModel):
 def get_settings() -> Settings:
     cors_origins = os.getenv("RIDESCOPE_CORS_ORIGINS")
     return Settings(
-        app_name=os.getenv("RIDESCOPE_APP_NAME", "RideScope AI API"),
+        app_name=os.getenv("RIDESCOPE_APP_NAME", "Ride Fare Comparision API"),
         route_api_url=os.getenv(
             "RIDESCOPE_ROUTE_API_URL",
             "https://router.project-osrm.org/route/v1/driving",

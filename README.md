@@ -1,6 +1,6 @@
-# RideScope AI
+# Ride Fare Comparision
 
-RideScope AI is a route-aware ride fare estimation dashboard with a FastAPI backend and a lightweight web frontend. It compares provider-style fare estimates using live route distance, automatic time-based traffic inference, vehicle-class pricing, and historical analytics.
+Ride Fare Comparision is a route-aware ride fare estimation dashboard with a FastAPI backend and a lightweight web frontend. It compares provider-style fare estimates using live route distance, automatic time-based traffic inference, vehicle-class pricing, and historical analytics.
 
 ## Features
 
