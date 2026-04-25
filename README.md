@@ -1,6 +1,6 @@
-# Ride Comparision
+# Ride Comparison
 
-Ride Comparision is a route-aware ride fare estimation dashboard with a FastAPI backend and a static web frontend. It compares provider-style fare estimates using live route distance, automatic time-based traffic inference, vehicle-class pricing, and historical analytics.
+Ride Comparison is a route-aware ride fare estimation dashboard with a FastAPI backend and a static web frontend. It compares provider-style fare estimates using live route distance, automatic time-based traffic inference, vehicle-class pricing, and historical analytics.
 
 ## Features
 
