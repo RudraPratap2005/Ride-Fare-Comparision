@@ -3,7 +3,7 @@ from io import StringIO
 import csv
 
 from fastapi import APIRouter, Depends
-from fastapi.responses import StreamingResponse
+from fastapi.responses import RedirectResponse, StreamingResponse
 
 from backend.api.schemas import BookingType, RideRequest, RideResponse
 from backend.core.config import Settings, get_settings
@@ -27,6 +27,10 @@ router = APIRouter()
 
 
 @router.get("/")
+def root_redirect() -> RedirectResponse:
+    return RedirectResponse(url="/web", status_code=307)
+
+
 @router.get("/health")
 def health_check() -> dict:
     return {"status": "ok", "message": "Ride Fare Comparision API is running."}

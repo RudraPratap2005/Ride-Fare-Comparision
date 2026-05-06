@@ -52,6 +52,14 @@ def test_get_price_returns_valid_response(monkeypatch):
     assert payload["trip_context"]["inferred_traffic"] == "High"
 
 
+def test_root_redirects_to_web():
+    client = TestClient(app)
+    response = client.get("/", follow_redirects=False)
+
+    assert response.status_code == 307
+    assert response.headers["location"] == "/web"
+
+
 def test_get_price_rejects_invalid_coordinates():
     client = TestClient(app)
     response = client.post(
