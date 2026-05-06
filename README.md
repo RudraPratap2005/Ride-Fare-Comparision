@@ -59,6 +59,28 @@ Frontend: `http://localhost:8000/web`
 
 Backend docs: `http://localhost:8000/docs`
 
+## Deploy on Render
+
+This project can be deployed as a single FastAPI web service because the backend already serves the static frontend from `/web`.
+
+1. Push the repository to GitHub.
+2. Sign in to Render and choose `New +` -> `Blueprint`.
+3. Select this GitHub repository.
+4. Render will detect `render.yaml` and create the web service.
+5. After deployment, open:
+   - App UI: `https://<your-service-name>.onrender.com/web`
+   - API docs: `https://<your-service-name>.onrender.com/docs`
+
+Start command used by Render:
+
+```bash
+uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+```
+
+Important note:
+
+- The app currently uses SQLite. On Render's free web service, local filesystem data is ephemeral, so ride history may reset after restarts or redeploys. For persistent analytics history, attach a disk on Render or move to a managed database.
+
 ## API
 
 Health check:

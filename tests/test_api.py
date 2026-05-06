@@ -7,6 +7,17 @@ from backend.core.config import Settings
 from backend.main import app
 
 
+def build_test_settings(database_name: str):
+    database_path = Path("data") / database_name
+    if database_path.exists():
+        database_path.unlink()
+
+    def test_settings():
+        return Settings(database_path=database_path)
+
+    return test_settings
+
+
 def test_get_price_returns_valid_response(monkeypatch):
     def fake_route_metrics(*args, **kwargs):
         return {
@@ -15,14 +26,8 @@ def test_get_price_returns_valid_response(monkeypatch):
             "route_source": "test route",
         }
 
-    def test_settings():
-        database_path = Path("data/test_ride_fare_comparision.db")
-        if database_path.exists():
-            database_path.unlink()
-        return Settings(database_path=database_path)
-
     monkeypatch.setattr("backend.api.routes.get_route_metrics", fake_route_metrics)
-    app.dependency_overrides[get_settings] = test_settings
+    app.dependency_overrides[get_settings] = build_test_settings("test_ride_fare_comparision.db")
 
     client = TestClient(app)
     response = client.post(
@@ -63,10 +68,7 @@ def test_get_price_rejects_invalid_coordinates():
 
 
 def test_history_summary_returns_success(monkeypatch):
-    def test_settings():
-        return Settings(database_path=Path("data/test_ride_fare_comparision.db"))
-
-    app.dependency_overrides[get_settings] = test_settings
+    app.dependency_overrides[get_settings] = build_test_settings("test_ride_fare_comparision_summary.db")
 
     client = TestClient(app)
     response = client.get("/history-summary")
@@ -80,10 +82,7 @@ def test_history_summary_returns_success(monkeypatch):
 
 
 def test_clear_history_returns_deleted_rows(monkeypatch):
-    def test_settings():
-        return Settings(database_path=Path("data/test_ride_fare_comparision.db"))
-
-    app.dependency_overrides[get_settings] = test_settings
+    app.dependency_overrides[get_settings] = build_test_settings("test_ride_fare_comparision_clear.db")
 
     client = TestClient(app)
     client.post(
@@ -113,14 +112,8 @@ def test_ola_analytics_returns_provider_focused_dataset(monkeypatch):
             "route_source": "test route",
         }
 
-    def test_settings():
-        database_path = Path("data/test_ride_fare_comparision_ola.db")
-        if database_path.exists():
-            database_path.unlink()
-        return Settings(database_path=database_path)
-
     monkeypatch.setattr("backend.api.routes.get_route_metrics", fake_route_metrics)
-    app.dependency_overrides[get_settings] = test_settings
+    app.dependency_overrides[get_settings] = build_test_settings("test_ride_fare_comparision_ola.db")
 
     client = TestClient(app)
     client.post(
@@ -155,14 +148,10 @@ def test_ola_analytics_csv_export_returns_csv(monkeypatch):
             "route_source": "test route",
         }
 
-    def test_settings():
-        database_path = Path("data/test_ride_fare_comparision_ola_export.db")
-        if database_path.exists():
-            database_path.unlink()
-        return Settings(database_path=database_path)
-
     monkeypatch.setattr("backend.api.routes.get_route_metrics", fake_route_metrics)
-    app.dependency_overrides[get_settings] = test_settings
+    app.dependency_overrides[get_settings] = build_test_settings(
+        "test_ride_fare_comparision_ola_export.db"
+    )
 
     client = TestClient(app)
     client.post(
